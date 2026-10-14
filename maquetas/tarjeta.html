@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es-BO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maqueta de propuesta · Tarjeta de sellos de Pausa</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../assets/icons/favicon-48.png" sizes="48x48">
+<link rel="preload" href="../assets/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="maqueta.css">
+<style>
+  .cards { display: grid; gap: var(--s5); padding: var(--s5) 0; justify-items: center; }
+  .sc { width: 100%; max-width: 360px; aspect-ratio: 85 / 55; border-radius: 14px; background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,.10); padding: 16px 18px; display: grid; position: relative; }
+  .sc--front { grid-template-rows: auto 1fr; gap: 10px; }
+  .sc--front .top { display: flex; justify-content: space-between; align-items: center; }
+  .sc--front .top img { width: 96px; height: auto; }
+  .sc--front .top span { font-size: 11px; font-weight: 800; letter-spacing: .04em; }
+  .dots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; align-content: center; }
+  .dots i { aspect-ratio: 1; border-radius: 50%; border: 2px solid var(--ink); }
+  .sc--back { grid-template-columns: 1fr 104px; gap: 12px; align-items: center; background: var(--ink); color: #fff; border-color: var(--ink); }
+  .sc--back p { font-size: 12px; line-height: 1.45; }
+  .sc--back b { font-size: 14px; }
+  .qrbox { background: #fff; border-radius: 8px; padding: 6px; }
+  .qrbox svg { width: 100%; height: auto; display: block; }
+  .side { font-size: var(--fs-xs); font-weight: 800; color: var(--ink-2); text-transform: uppercase; letter-spacing: .06em; }
+</style>
+</head>
+<body class="maqueta">
+<div class="maqueta-label" role="note"><strong>Maqueta de propuesta</strong><span>tarjeta reimpresa · no es la tarjeta actual</span></div>
+<div class="wrap">
+  <div class="cards">
+    <span class="side">Frente</span>
+    <div class="sc sc--front" aria-label="Frente de la tarjeta de sellos">
+      <div class="top"><img src="../assets/img/logo-negro-360.webp" width="360" height="98" alt="Pausa Coffee Express"><span>PARA UN BUEN COFFEE</span></div>
+      <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <span class="side">Reverso</span>
+    <div class="sc sc--back" aria-label="Reverso de la tarjeta de sellos">
+      <div>
+        <p><b>10 sellos = <span class="pendiente" style="color:var(--ink)">[premio · VERIFICAR con el dueño]</span></b></p>
+        <p>WhatsApp 64581332<br>@pausa.coffeetja</p>
+        <p>Escanea y mira tus sellos digitales: los pedidos por WhatsApp también suman.</p>
+      </div>
+      <div class="qrbox" id="qr" role="img" aria-label="QR a la consulta de puntos"></div>
+    </div>
+    <div class="foot-note" style="max-width:360px">
+      <p>Propuesta (12 §2.9): reimprimir la tarjeta con un solo número (se retira el 69324241 de C28) y un QR a la consulta de puntos. Estado: PROPUESTO. El QR de esta maqueta sí funciona: abre la consulta de la propuesta.</p>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/qrcode.js"></script>
+<script>
+  var q = qrcode(0, "M"); q.addData(new URL("../puntos.html", location.href).href); q.make();
+  document.getElementById("qr").innerHTML = q.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+</script>
+</body>
+</html>

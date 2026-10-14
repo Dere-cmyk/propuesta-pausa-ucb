@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es-BO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR de la defensa · Propuesta Pausa (UCB)</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/icons/favicon-48.png" sizes="48x48">
+<link rel="stylesheet" href="assets/css/base.css">
+<style>
+  body { background: var(--paper); }
+  .qrs { display: grid; gap: var(--s6); padding: var(--s6) 0; }
+  @media (min-width: 900px) { .wrap { max-width: 1200px; } .qrs { grid-template-columns: repeat(3, 1fr); } }
+  .qr { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); display: grid; gap: var(--s3); justify-items: center; text-align: center; }
+  .qr svg, .qr img { width: 100%; max-width: 340px; height: auto; }
+  .qr code { font-size: var(--fs-xs); word-break: break-all; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="padding-top:var(--s5)">
+    <span class="eyebrow">Defensa EC2 · 15/10/2026</span>
+    <h1 style="font-size:var(--fs-lg);margin-top:var(--s2)">QR para escanear con el celular</h1>
+    <p class="note-propuesta" style="margin-top:var(--s3)">Propuesta académica UCB · no es el sitio oficial de Pausa</p>
+  </header>
+  <div class="qrs">
+    <section class="qr">
+      <span class="tag">Para el docente · paso 1 de la ruta</span>
+      <h2>Perfil de Instagram (maqueta)</h2>
+      <div id="qr-ig" role="img" aria-label="Código QR de la maqueta del perfil de Instagram"></div>
+      <code id="url-ig"></code>
+    </section>
+    <section class="qr">
+      <span class="tag tag--light">Web de la propuesta</span>
+      <h2>Web liviana</h2>
+      <div id="qr-web" role="img" aria-label="Código QR de la web de la propuesta"></div>
+      <code id="url-web"></code>
+    </section>
+    <section class="qr">
+      <span class="tag tag--light">Paso 5 · con el docente</span>
+      <h2>QR de pago de demostración</h2>
+      <img src="demo/qr-demo-no-valido-para-pagar.png" width="1080" height="1440" alt="QR de demostración, no válido para pagar: solo contiene un texto">
+      <p class="small muted">Se envía por el chat junto a /confirmar. No es un cobro.</p>
+    </section>
+  </div>
+</div>
+<script src="assets/js/qrcode.js"></script>
+<script>
+  function draw(id, url) {
+    var q = qrcode(0, "M"); q.addData(url); q.make();
+    document.getElementById(id).innerHTML = q.createSvgTag({ cellSize: 8, margin: 2, scalable: true });
+    document.getElementById("url-" + id.split("-")[1]).textContent = url;
+  }
+  var base = new URL("./", location.href).href;
+  draw("qr-ig", base + "maquetas/instagram.html");
+  draw("qr-web", base);
+</script>
+</body>
+</html>

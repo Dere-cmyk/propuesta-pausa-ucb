@@ -1,0 +1,16 @@
+{
+  "name": "Pausa Coffee Express",
+  "short_name": "Pausa",
+  "description": "Consulta tus sellos de Pausa Coffee Express (propuesta académica UCB).",
+  "lang": "es-BO",
+  "start_url": "./puntos.html?origen=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F3EE",
+  "theme_color": "#F7F3EE",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

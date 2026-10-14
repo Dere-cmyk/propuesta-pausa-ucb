@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es-BO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pausa Coffee Express · Café para llevar en Tarija (propuesta)</title>
+<meta name="description" content="Propuesta académica UCB para Pausa Coffee Express: pide por WhatsApp, paga con QR y retira en ventanilla sin hacer fila. No es el sitio oficial de Pausa.">
+<!-- Propuesta académica: no se indexa para que nadie la confunda con un sitio oficial de Pausa. Quitar esta línea solo si el dueño adopta la web. -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F7F3EE">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icons/favicon-48.png" sizes="48x48">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/hero-720.webp" imagesrcset="assets/img/hero-480.webp 480w, assets/img/hero-720.webp 720w, assets/img/hero-960.webp 960w" imagesizes="(min-width: 560px) 528px, calc(100vw - 32px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/base.css">
+<style>
+  .header { display: flex; align-items: center; justify-content: space-between; padding: var(--s3) 0; }
+  .header img { width: 132px; height: auto; }
+  .hero { display: grid; gap: var(--s4); padding-bottom: var(--s2); }
+  .hero__img { border-radius: var(--radius); overflow: hidden; background: #2a2622; aspect-ratio: 4 / 3; }
+  .hero__img img { width: 100%; height: 100%; object-fit: cover; }
+  .hero__lead { font-size: var(--fs-md); color: var(--ink-2); max-width: 34ch; }
+  .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s5); }
+  .grid { display: grid; gap: var(--s3); }
+  .local-thumbs { display: grid; grid-template-columns: 2fr 1fr; gap: 2px; }
+  .local-thumbs img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; }
+  .puntos { display: grid; grid-template-columns: 1fr 110px; gap: var(--s4); align-items: center; }
+  .puntos img { width: 110px; height: 138px; object-fit: cover; border-radius: var(--radius-sm); }
+  @media (min-width: 560px) { .hero__img { aspect-ratio: 16 / 10; } }
+</style>
+</head>
+<body class="has-bar">
+<div class="wrap">
+
+  <header class="header">
+    <img src="assets/img/logo-negro-360.webp" width="360" height="98" alt="Pausa Coffee Express">
+  </header>
+
+  <main>
+    <!-- 1. Primera pantalla -->
+    <section class="hero" aria-labelledby="titulo">
+      <div class="hero__img">
+        <img src="assets/img/hero-720.webp"
+             srcset="assets/img/hero-480.webp 480w, assets/img/hero-720.webp 720w, assets/img/hero-960.webp 960w"
+             sizes="(min-width: 560px) 528px, calc(100vw - 32px)"
+             width="720" height="540" fetchpriority="high" decoding="async"
+             alt="Dos vasos para llevar de Pausa, uno negro y uno blanco, frente al local">
+      </div>
+      <h1 id="titulo">Tu café listo en ventanilla, sin hacer fila</h1>
+      <p class="hero__lead">Pides por WhatsApp, pagas con QR y retiras al pasar. Centro de Tarija.</p>
+      <div class="hero__actions">
+        <a class="link-arrow" data-catalog href="#" target="_blank">Ver menú y precios →</a>
+        <span class="status" data-status aria-live="polite">Lun–sáb · 8–12 y 15–20</span>
+      </div>
+      <p class="note-propuesta">Propuesta académica UCB · no es el sitio oficial de Pausa</p>
+    </section>
+
+    <!-- 2. Cómo pedir (F11) -->
+    <section class="section" id="como-pedir" aria-labelledby="h-como">
+      <div class="section__head">
+        <span class="eyebrow">Sin fila</span>
+        <h2 id="h-como">Cómo pedir</h2>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+          </span>
+          <div><span class="step__num">Paso 1</span><h3>Elige en el menú de WhatsApp</h3></div>
+        </li>
+        <li class="step">
+          <span class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>
+          </span>
+          <div><span class="step__num">Paso 2</span><h3>Paga con QR desde la app de tu banco o billetera</h3></div>
+        </li>
+        <li class="step">
+          <span class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><rect x="9" y="11" width="6" height="5" rx="1"/></svg>
+          </span>
+          <div><span class="step__num">Paso 3</span><h3>Retira en la ventanilla: solo di tu nombre</h3></div>
+          <div class="step__media">
+            <img src="assets/img/ventanilla-400.webp" width="400" height="500" loading="lazy" decoding="async"
+                 alt="Lateral del local principal de Pausa con la ventana de retiro y el isotipo en la pared">
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3. Menú por categorías (F7) · opción A: sin precios propios -->
+    <section class="section" id="menu" aria-labelledby="h-menu">
+      <div class="section__head">
+        <span class="eyebrow">Menú</span>
+        <h2 id="h-menu">Calientes y fríos, para llevar</h2>
+        <p class="muted small">Los precios están en el menú de WhatsApp, siempre al día.</p>
+      </div>
+      <div class="grid">
+        <article class="card card-cat">
+          <img src="assets/img/menu-calientes-240.webp" srcset="assets/img/menu-calientes-240.webp 240w, assets/img/menu-calientes-400.webp 400w" sizes="108px"
+               width="240" height="300" loading="lazy" decoding="async" alt="Vaso negro y vaso blanco de Pausa con latte art">
+          <div class="card__body">
+            <h3>Calientes</h3>
+            <p class="small muted">Espresso, americano, cortado, flat white, matcha latte, Pausa Mocca y más.</p>
+            <a class="btn btn--secondary" data-catalog href="#" target="_blank">Ver precios y pedir</a>
+          </div>
+        </article>
+        <article class="card card-cat">
+          <img src="assets/img/menu-frios-240.webp" srcset="assets/img/menu-frios-240.webp 240w, assets/img/menu-frios-400.webp 400w" sizes="108px"
+               width="240" height="300" loading="lazy" decoding="async" alt="Matcha latte frío y latte frío en vasos de Pausa">
+          <div class="card__body">
+            <h3>Fríos</h3>
+            <p class="small muted">Cold brew, latte frío, espresso tonic, Matcha Blue &amp; berries y más.</p>
+            <a class="btn btn--secondary" data-catalog href="#" target="_blank">Ver precios y pedir</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. Dónde estamos (F9, F13) -->
+    <section class="section" id="donde" aria-labelledby="h-donde">
+      <div class="section__head">
+        <span class="eyebrow">Dos locales</span>
+        <h2 id="h-donde">Dónde estamos</h2>
+        <p class="muted small">Lunes a sábado, de 8:00 a 12:00 y de 15:00 a 20:00.</p>
+      </div>
+      <div class="grid">
+        <article class="card card-local">
+          <div class="local-thumbs">
+            <img class="cover" src="assets/img/fachada-principal-480.webp" srcset="assets/img/fachada-principal-480.webp 480w, assets/img/fachada-principal-720.webp 720w" sizes="(min-width: 560px) 350px, 66vw"
+                 width="480" height="300" loading="lazy" decoding="async" alt="Fachada del local principal: esquina blanca con letrero y toldo negro">
+            <img src="assets/img/ventanilla-240.webp" width="240" height="300" loading="lazy" decoding="async" alt="Ventana de retiro del local principal">
+          </div>
+          <div class="card__body">
+            <div><span class="tag">Ventanilla de retiro</span></div>
+            <h3>Local principal</h3>
+            <dl>
+              <dt>Dirección</dt><dd>C. Sucre entre Virginio Lema y 15 de Abril</dd>
+              <dt>Horario</dt><dd>Lun–sáb · 8:00–12:00 y 15:00–20:00</dd>
+            </dl>
+            <a class="btn btn--primary" data-maps="principal" href="#" target="_blank">Cómo llegar</a>
+          </div>
+        </article>
+        <article class="card card-local">
+          <img class="cover" src="assets/img/fachada-sucursal-480.webp" srcset="assets/img/fachada-sucursal-480.webp 480w, assets/img/fachada-sucursal-720.webp 720w" sizes="(min-width: 560px) 528px, 100vw"
+               width="480" height="300" loading="lazy" decoding="async" alt="Fachada de la sucursal con vidriera y aparcabicicletas">
+          <div class="card__body">
+            <div><span class="tag tag--light">Compra en mostrador</span></div>
+            <h3>Sucursal</h3>
+            <dl>
+              <dt>Dirección</dt><dd>Av. La Paz 249, entre Avaroa y Las Américas</dd>
+              <dt>Horario</dt><dd>Lun–sáb · 8:00–12:00 y 15:00–20:00</dd>
+            </dl>
+            <a class="btn btn--secondary" data-maps="sucursal" href="#" target="_blank">Cómo llegar</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. Puntos (F12) -->
+    <section class="section" id="puntos" aria-labelledby="h-puntos">
+      <div class="card"><div class="card__body">
+        <div class="puntos">
+          <div class="grid">
+            <span class="eyebrow">Puntos</span>
+            <h2 id="h-puntos">Tu tarjeta de sellos, ahora también en el celular</h2>
+          </div>
+          <img src="assets/img/puntos-240.webp" width="240" height="300" loading="lazy" decoding="async" alt="Mano con un vaso de Pausa frente a la pared «Para un buen coffee»">
+        </div>
+        <p class="muted">Cada compra suma, también las que haces por WhatsApp.</p>
+        <a class="btn btn--secondary btn--block" href="puntos.html">Consultar mis puntos</a>
+      </div></div>
+    </section>
+
+    <!-- 6. Reseñas reales de Google (F10) -->
+    <section class="section" id="resenas" aria-labelledby="h-resenas">
+      <div class="section__head">
+        <span class="eyebrow">Reseñas en Google</span>
+        <h2 id="h-resenas" class="visually-hidden">Reseñas</h2>
+        <!-- Cifra de la ficha real (C26, 09/09/2026). [VERIFICAR la cifra vigente al publicar] -->
+        <p class="rating"><span class="rating__num">5,0</span><span><strong>de 5</strong> · 7 reseñas en Google</span></p>
+        <a class="link-arrow small" data-maps="ficha" href="#" target="_blank">Ver todas en Google Maps →</a>
+      </div>
+      <div class="grid">
+        <!-- Fragmentos textuales de reseñas reales (C2 y C26). [VERIFICAR: copiar el texto completo desde la ficha] -->
+        <figure class="review">
+          <blockquote>«…te sirven súper rápido»</blockquote>
+          <figcaption class="small muted"><cite>Julia Corez</cite> · 5 de 5 · hace 7 meses (al 05/09/2026)</figcaption>
+        </figure>
+        <figure class="review">
+          <blockquote lang="en">«…hidden gem»</blockquote>
+          <figcaption class="small muted"><cite>Georgia Rose</cite> · 5 de 5 · hace 6 meses (al 09/09/2026)</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <!-- 7. Pie -->
+  <footer class="footer">
+    <a class="btn btn--primary btn--block" data-wa="web" href="#" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>
+      Pedir por WhatsApp
+    </a>
+    <ul class="small">
+      <li>WhatsApp: <a data-wa="web" href="#" target="_blank" data-wa-number>+591</a></li>
+      <li><a data-conf="INSTAGRAM" href="#" target="_blank">Instagram @pausa.coffeetja</a></li>
+      <li><a data-conf="TIKTOK" href="#" target="_blank">TikTok Pausa.coffeetja</a></li>
+    </ul>
+    <p class="xsmall muted">Datos actualizados al <span data-updated>14/10/2026</span>.</p>
+    <p class="note-propuesta">Propuesta académica UCB · no es el sitio oficial de Pausa</p>
+  </footer>
+</div>
+
+<!-- CTA fijo al alcance del pulgar -->
+<div class="bottom-bar">
+  <a class="btn btn--primary btn--block" data-wa="web" href="#" target="_blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>
+    Pedir por WhatsApp
+  </a>
+</div>
+
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
