@@ -224,7 +224,7 @@
         </div>
         <div class="big-rate"><strong>5,0</strong><span class="stars">★★★★★</span><br><span>7 reseñas</span></div>
       </div>
-      <div class="write"><a class="act" data-maps="ficha" href="#" target="_blank">Escribir una reseña</a></div>
+      <div class="write"><a class="act" data-maps="resena" href="#" target="_blank">Escribir una reseña</a></div>
 
       <!-- Fragmentos textuales de reseñas reales (C2, C26) con las respuestas propuestas en 12 §2.6 -->
       <article class="rev">
@@ -272,6 +272,10 @@
         document.querySelectorAll(".panel").forEach(function (p) { p.classList.toggle("on", p.id === "p-" + t.dataset.tab); });
       });
     });
+    // Abrir una pestaña directo con #resumen, #carta, #resenas o #informacion
+    var HASH = { resumen: "general", carta: "menu", resenas: "resenas", informacion: "info" };
+    var h = HASH[location.hash.slice(1)];
+    if (h) document.querySelector('.tab[data-tab="' + h + '"]').click();
     // Horario de la semana desde config.js, con el día de hoy resaltado
     var C = window.PAUSA, dias = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
     var hoy = new Intl.DateTimeFormat("es-BO", { timeZone: C.TIMEZONE, weekday: "long" }).format(new Date()).toLowerCase();
