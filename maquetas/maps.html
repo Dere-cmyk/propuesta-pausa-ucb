@@ -86,7 +86,16 @@
   .owner .tagp { display: inline-block; font-size: 11px; font-weight: 700; background: #FFF3C4; border-radius: 4px; padding: 0 5px; margin-left: 4px; }
   .verif { color: var(--txt2); font-size: 12px; }
 
-  .menu-cta { margin: 16px; }
+  .mchips { position: sticky; top: var(--lbl, 0px); z-index: 2; display: flex; gap: 8px; overflow-x: auto; padding: 10px 16px; background: #fff; border-bottom: 1px solid var(--div); scrollbar-width: none; }
+  .mchips::-webkit-scrollbar { display: none; }
+  .mchip { flex: none; height: 36px; padding: 0 16px; border-radius: 8px; border: 0; background: #fff; color: var(--txt); font: 500 14px/36px Roboto, system-ui, sans-serif; text-decoration: none; cursor: pointer; }
+  .mchip[aria-pressed="true"] { background: #E8EAED; }
+  @media (min-width: 520px) { .mchips { top: 0; } }
+  @media (max-width: 519px) { .phone { overflow: visible; } }
+  .msec h2 { font-size: 22px; font-weight: 400; padding: 20px 16px 4px; letter-spacing: 0; }
+  .mitem { margin: 0 16px; padding: 16px 0; border-bottom: 1px solid var(--div); display: grid; gap: 6px; }
+  .mitem b { font-weight: 400; font-size: 16px; }
+  .mitem span { font-size: 15px; }
   .notes { padding: 16px; color: var(--txt2); font-size: 12px; display: grid; gap: 8px; }
   .label-chip { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; background: #FFF3C4; color: #161412; padding: 2px 8px; border-radius: 4px; }
 </style>
@@ -145,8 +154,8 @@
     </div>
 
     <div class="tabs" role="tablist">
-      <button class="tab" role="tab" aria-selected="true" data-tab="general">Descripción general</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="menu">Menú</button>
+      <button class="tab" role="tab" aria-selected="true" data-tab="general">Resumen</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="menu">Carta</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="resenas">Reseñas</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="info">Información</button>
     </div>
@@ -190,17 +199,17 @@
       </div>
     </section>
 
-    <!-- Menú -->
+    <!-- Carta: editor de menú de la ficha (secciones, productos y precios de la tabla 2.3) -->
     <section class="panel" id="p-menu" role="tabpanel">
       <div class="photos">
         <figure><img class="big" src="../assets/img/maps-producto-1-320.webp" width="320" height="320" alt="Bebidas calientes"><figcaption>Calientes</figcaption></figure>
         <figure><img class="big" src="../assets/img/maps-producto-2-320.webp" width="320" height="320" alt="Bebidas frías"><figcaption>Fríos</figcaption></figure>
       </div>
-      <div class="rows">
-        <a class="row" data-catalog href="#" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
-          <span>Menú<small data-menu-host>wa.me/c/…</small></span></a>
+      <div class="mchips" id="mchips">
+        <a class="mchip" data-catalog href="#" target="_blank">Ver menú</a>
       </div>
+      <div id="carta"></div>
+      <p class="verif" style="padding:0 16px 12px">Menú entregado por Pausa el 14/10/2026 (tabla 2.3). Latte caliente, comida y tamaño de los vasos: [VERIFICAR con el dueño].</p>
     </section>
 
     <!-- Reseñas -->
@@ -246,7 +255,7 @@
 
     <div class="notes">
       <p><b>Maqueta de propuesta</b> (EC2, Marketing Móvil MKD-314, UCB Tarija). Muestra cómo quedaría la ficha del local principal después de completarla (12 §2.6). El mapa es ilustrativo.</p>
-      <p>Reclamar y verificar la ficha, completarla y responder las reseñas depende del dueño: PROPUESTO. Los botones funcionan: «Cómo llegar» abre Maps; «WhatsApp» abre el chat del <b>número de demostración</b> (botón de chat de la ficha [VERIFICAR disponibilidad en Bolivia]); «Sitio web» abre la propuesta; «Menú» es el enlace del menú de la ficha y abre el catálogo, donde viven los precios (opción A: no se usa el editor de menú con precios de Google); «Escribir una reseña» abre la ficha real, donde no se publica nada durante la demo.</p>
+      <p>Reclamar y verificar la ficha, completarla y responder las reseñas depende del dueño: PROPUESTO. Los botones funcionan: «Cómo llegar» abre Maps; «WhatsApp» abre el chat del <b>número de demostración</b> (botón de chat de la ficha [VERIFICAR disponibilidad en Bolivia]); «Sitio web» abre la propuesta; «Menú» es el enlace del menú de la ficha y abre el catálogo. La pestaña «Carta» usa el editor de menú de la ficha con los productos y precios de la tabla 2.3: los mismos del catálogo, que se cambian en los dos lugares el mismo día; «Escribir una reseña» abre la ficha real, donde no se publica nada durante la demo.</p>
     </div>
   </div>
 
@@ -284,6 +293,32 @@
       document.querySelectorAll("[data-gstatus]").forEach(function (el) { el.textContent = t; el.setAttribute("data-open", String(st.open)); });
     }
     gstatus(); setInterval(gstatus, 60000);
+    // Carta (tabla 2.3). Los precios deben ser los mismos del catálogo de WhatsApp.
+    var CARTA = [
+      ["Calientes", [["Espresso",10],["Americano",10],["Cappucino",10],["Cortado",10],["Flat white",12],["Matcha",12],["Matcha Latte",12],["Matcha Blue & berries (caliente)",14],["Pausa Mocca",14]]],
+      ["Fríos", [["Americano frío",12],["Latte frío",12],["Cold brew",12],["Matcha frío",12],["Matcha Latte frío",12],["Te frío",12],["Jugo de frutas",12],["Matcha blue & berries (frío)",14],["Espresso tonic",14],["Soda blue",14],["Matcha affogatto",14]]]
+    ];
+    var carta = document.getElementById("carta"), chips = document.getElementById("mchips");
+    var lbl = document.querySelector(".maqueta-label"); if (lbl) chips.style.setProperty("--lbl", lbl.offsetHeight + "px");
+    CARTA.forEach(function (sec, i) {
+      var id = "sec-" + i, wrap = document.createElement("div"); wrap.className = "msec"; wrap.id = id;
+      var h = document.createElement("h2"); h.textContent = sec[0]; wrap.appendChild(h);
+      sec[1].forEach(function (it) {
+        var d = document.createElement("div"); d.className = "mitem";
+        var n = document.createElement("b"); n.textContent = it[0];
+        var pr = document.createElement("span"); pr.textContent = "Bs " + it[1] + ",00";
+        d.appendChild(n); d.appendChild(pr); wrap.appendChild(d);
+      });
+      carta.appendChild(wrap);
+      var c = document.createElement("button"); c.className = "mchip"; c.type = "button"; c.textContent = sec[0]; c.setAttribute("aria-pressed", "false");
+      c.addEventListener("click", function () {
+        chips.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", String(b === c)); });
+        var framed = window.matchMedia("(min-width: 520px)").matches;
+        wrap.style.scrollMarginTop = (chips.offsetHeight + (framed || !lbl ? 0 : lbl.offsetHeight) + 4) + "px";
+        wrap.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      chips.appendChild(c);
+    });
     // Enlace del menú, como lo muestra la ficha
     document.querySelectorAll("[data-menu-host]").forEach(function (el) { el.textContent = "wa.me/c/" + C.WA_NUMBER; });
     // Dirección de la web de la propuesta
