@@ -17,6 +17,7 @@ window.PAUSA = {
   WA_TEXTS: {
     web: "Hola, vengo de la web y quiero hacer un pedido para retirar",
     tiktok: "Hola, vi su TikTok y quiero hacer un pedido para retirar",
+    maps: "Hola, los encontré en Google Maps y quiero hacer un pedido para retirar", // [propuesta nueva, falta en 12 §2.2]
     anuncio: "Hola, vi el Matcha Blue & berries en Instagram y lo quiero para retirar",
     instagram: "", // botón del perfil: el texto lo define la plataforma [VERIFICAR]
     puntos: ""     // consultas de sellos: el cliente escribe libremente
