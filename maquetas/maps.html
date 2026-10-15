@@ -135,12 +135,13 @@
     <div class="actions">
       <a class="act act--main" data-maps="principal" href="#" target="_blank">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 11.3l-9-9a1 1 0 0 0-1.4 0l-9 9a1 1 0 0 0 0 1.4l9 9a1 1 0 0 0 1.4 0l9-9a1 1 0 0 0 0-1.4zM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5z"/></svg>Cómo llegar</a>
+      <!-- Botón de chat con enlace de WhatsApp [VERIFICAR disponibilidad en Bolivia; requiere ficha verificada] → número de demostración -->
+      <a class="act" data-wa="maps" href="#" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg>WhatsApp</a>
       <a class="act" href="../" target="_blank">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Sitio web</a>
       <a class="act" data-catalog href="#" target="_blank">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>Menú</a>
-      <a class="act" data-maps="ficha" href="#" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Escribir reseña</a>
     </div>
 
     <div class="tabs" role="tablist">
@@ -177,6 +178,9 @@
         <a class="row" href="../" target="_blank">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
           <span id="web-host">Sitio web de la propuesta</span></a>
+        <a class="row" data-catalog href="#" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+          <span>Menú<small data-menu-host>wa.me/c/…</small></span></a>
         <div class="row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
           <span>64581332<small>En la maqueta no se enlaza, para no llamar al local</small></span></div>
@@ -192,8 +196,11 @@
         <figure><img class="big" src="../assets/img/maps-producto-1-320.webp" width="320" height="320" alt="Bebidas calientes"><figcaption>Calientes</figcaption></figure>
         <figure><img class="big" src="../assets/img/maps-producto-2-320.webp" width="320" height="320" alt="Bebidas frías"><figcaption>Fríos</figcaption></figure>
       </div>
-      <p class="desc">Los precios viven en un solo lugar: el menú de WhatsApp de Pausa (opción A).</p>
-      <div class="menu-cta"><a class="act act--main" data-catalog href="#" target="_blank" style="width:100%;justify-content:center">Ver menú y precios</a></div>
+      <div class="rows">
+        <a class="row" data-catalog href="#" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+          <span>Menú<small data-menu-host>wa.me/c/…</small></span></a>
+      </div>
     </section>
 
     <!-- Reseñas -->
@@ -232,8 +239,6 @@
           <span>Horario<span class="hours" id="hours2"></span></span></div>
         <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><rect x="9" y="11" width="6" height="5" rx="1"/></svg>
           <span>Opciones de servicio<small>Para llevar · Retiro en ventanilla [VERIFICAR]</small></span></div>
-        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>
-          <span>Pagos<small>QR interoperable desde la app de tu banco o billetera</small></span></div>
         <a class="row" data-maps="sucursal" href="#" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
           <span>Otra ficha: Pausa Coffee Express (sucursal)<small>Av. La Paz 249, entre Avaroa y Las Américas · compra en mostrador</small></span></a>
       </div>
@@ -241,7 +246,7 @@
 
     <div class="notes">
       <p><b>Maqueta de propuesta</b> (EC2, Marketing Móvil MKD-314, UCB Tarija). Muestra cómo quedaría la ficha del local principal después de completarla (12 §2.6). El mapa es ilustrativo.</p>
-      <p>Reclamar y verificar la ficha, completarla y responder las reseñas depende del dueño: PROPUESTO. Los botones funcionan: «Cómo llegar» abre Maps, «Sitio web» abre la propuesta, «Menú» abre el catálogo del número de demostración y «Escribir reseña» abre la ficha real, donde no se publica nada durante la demo.</p>
+      <p>Reclamar y verificar la ficha, completarla y responder las reseñas depende del dueño: PROPUESTO. Los botones funcionan: «Cómo llegar» abre Maps; «WhatsApp» abre el chat del <b>número de demostración</b> (botón de chat de la ficha [VERIFICAR disponibilidad en Bolivia]); «Sitio web» abre la propuesta; «Menú» es el enlace del menú de la ficha y abre el catálogo, donde viven los precios (opción A: no se usa el editor de menú con precios de Google); «Escribir una reseña» abre la ficha real, donde no se publica nada durante la demo.</p>
     </div>
   </div>
 
@@ -279,6 +284,8 @@
       document.querySelectorAll("[data-gstatus]").forEach(function (el) { el.textContent = t; el.setAttribute("data-open", String(st.open)); });
     }
     gstatus(); setInterval(gstatus, 60000);
+    // Enlace del menú, como lo muestra la ficha
+    document.querySelectorAll("[data-menu-host]").forEach(function (el) { el.textContent = "wa.me/c/" + C.WA_NUMBER; });
     // Dirección de la web de la propuesta
     var u = new URL("../", location.href);
     document.getElementById("web-host").textContent = (u.host + u.pathname).replace(/\/$/, "");
