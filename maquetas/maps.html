@@ -6,91 +6,283 @@
 <title>Maqueta de propuesta · Ficha de Pausa en Maps</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="../assets/icons/favicon-48.png" sizes="48x48">
-<link rel="preload" href="../assets/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/base.css">
 <link rel="stylesheet" href="maqueta.css">
 <style>
-  .photos { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2px; margin: 0 calc(-1 * var(--s4)); }
-  .photos img { width: 100%; aspect-ratio: 1; object-fit: cover; }
-  .photos img:first-child { grid-row: span 2; aspect-ratio: auto; height: 100%; }
-  .m-title { margin-top: var(--s4); display: grid; gap: 4px; }
-  .m-title h1 { font-size: var(--fs-lg); }
-  .m-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s2); margin: var(--s4) 0; }
-  .m-actions a { display: grid; justify-items: center; gap: 4px; min-height: 64px; align-content: center; border-radius: 12px; background: var(--cream); text-decoration: none; font-weight: 700; font-size: var(--fs-xs); }
-  .m-actions a.dark { background: var(--ink); color: #fff; }
-  .m-actions svg { width: 22px; height: 22px; }
-  .rows { display: grid; border-top: 1px solid var(--line); }
-  .rows > div { display: grid; grid-template-columns: 26px 1fr; gap: var(--s3); padding: var(--s3) 0; border-bottom: 1px solid var(--line); }
-  .rows svg { width: 20px; height: 20px; color: var(--ink-2); margin-top: 2px; }
-  .hours { display: grid; grid-template-columns: auto 1fr; gap: 2px var(--s3); }
-  .rev { display: grid; gap: var(--s2); padding: var(--s4) 0; border-bottom: 1px solid var(--line); }
-  .owner { background: var(--cream); border-radius: var(--radius-sm); padding: var(--s3); font-size: var(--fs-sm); }
-  .owner b { display: block; font-size: var(--fs-xs); }
-  .attr { display: flex; flex-wrap: wrap; gap: var(--s2); }
+  /* Interfaz de mapa genérica: tipografía del sistema (Roboto en Android), sin logotipos */
+  .gm, .gm button { font-family: Roboto, system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+  .gm { --blue: #1A73E8; --blue-ink: #0B57D0; --txt: #1F1F1F; --txt2: #5E5E5E; --div: #E3E3E3; --ok: #188038; --no: #C5221F; --star: #F4B400; color: var(--txt); font-size: 14px; background: #fff; }
+  .screen.gm { padding: 0; }
+
+  /* Mapa ilustrativo */
+  .map { position: relative; height: 230px; overflow: hidden; background: #F1EFE9; }
+  .map svg.streets { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .search { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 2; display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 16px; border-radius: 24px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.25); font-size: 16px; }
+  .search svg { width: 20px; height: 20px; color: var(--txt2); flex: none; }
+  .pin { position: absolute; left: 50%; top: 58%; transform: translate(-50%, -100%); z-index: 1; filter: drop-shadow(0 2px 2px rgba(0,0,0,.3)); }
+  .pin svg { width: 34px; height: 46px; display: block; }
+  .map-note { position: absolute; right: 8px; bottom: 22px; z-index: 1; font-size: 10px; color: var(--txt2); background: rgba(255,255,255,.8); padding: 1px 5px; border-radius: 3px; }
+
+  /* Hoja de la ficha */
+  .sheet { position: relative; margin-top: -16px; background: #fff; border-radius: 16px 16px 0 0; box-shadow: 0 -2px 6px rgba(0,0,0,.12); padding: 8px 0 24px; z-index: 3; }
+  .handle { width: 32px; height: 4px; border-radius: 2px; background: #C4C7C5; margin: 0 auto 10px; }
+  .pad { padding: 0 16px; }
+  .gm h1 { font-size: 22px; font-weight: 400; letter-spacing: 0; line-height: 1.25; }
+  .meta { color: var(--txt2); display: grid; gap: 2px; margin-top: 4px; }
+  .rate { display: flex; align-items: center; gap: 4px; color: var(--txt); }
+  .stars { color: var(--star); letter-spacing: 1px; font-size: 13px; }
+  .open-line [data-open="true"] { color: var(--ok); }
+  .open-line [data-open="false"] { color: var(--no); }
+  .open-line .st { font-weight: 500; }
+
+  .actions { display: flex; gap: 8px; overflow-x: auto; padding: 14px 16px 4px; scrollbar-width: none; }
+  .actions::-webkit-scrollbar { display: none; }
+  .act { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 20px; border: 1px solid #C4C7C5; background: #fff; color: var(--blue-ink); font-weight: 500; font-size: 14px; text-decoration: none; }
+  .act--main { background: var(--blue-ink); border-color: var(--blue-ink); color: #fff; }
+  .act svg { width: 18px; height: 18px; }
+
+  .tabs { display: flex; border-bottom: 1px solid var(--div); margin-top: 12px; overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: none; min-height: 48px; padding: 0 16px; border: 0; background: none; color: var(--txt2); font-size: 14px; font-weight: 500; border-bottom: 3px solid transparent; cursor: pointer; }
+  .tab[aria-selected="true"] { color: var(--blue-ink); border-bottom-color: var(--blue-ink); }
+  .panel { display: none; }
+  .panel.on { display: block; }
+
+  .photos { display: flex; gap: 4px; overflow-x: auto; padding: 12px 16px; scrollbar-width: none; }
+  .photos::-webkit-scrollbar { display: none; }
+  .photos figure { margin: 0; flex: none; position: relative; }
+  .photos img { width: 132px; height: 132px; object-fit: cover; border-radius: 8px; }
+  .photos img.big { width: 200px; }
+  .photos figcaption { position: absolute; left: 8px; bottom: 6px; color: #fff; font-size: 12px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,.8); }
+
+  .desc { padding: 4px 16px 12px; color: var(--txt); line-height: 1.45; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; }
+  .chip { display: inline-flex; align-items: center; gap: 4px; height: 28px; padding: 0 10px; border-radius: 8px; background: #F1F3F4; font-size: 13px; }
+  .chip svg { width: 14px; height: 14px; color: var(--ok); }
+
+  .rows { border-top: 1px solid var(--div); }
+  .row { display: grid; grid-template-columns: 24px 1fr; gap: 20px; align-items: start; padding: 14px 16px; border-bottom: 1px solid var(--div); color: var(--txt); text-decoration: none; line-height: 1.4; }
+  a.row { min-height: 48px; }
+  .row svg { width: 22px; height: 22px; color: var(--blue-ink); }
+  .row small { display: block; color: var(--txt2); font-size: 12px; }
+  .hours { display: grid; grid-template-columns: 90px 1fr; gap: 4px 8px; margin-top: 6px; color: var(--txt2); }
+  .hours .today { color: var(--txt); font-weight: 500; }
+
+  .sum { display: grid; grid-template-columns: 1fr 96px; gap: 16px; align-items: center; padding: 16px; }
+  .bars { display: grid; gap: 4px; }
+  .bar { display: grid; grid-template-columns: 10px 1fr; gap: 8px; align-items: center; font-size: 12px; color: var(--txt2); }
+  .bar i { height: 8px; border-radius: 4px; background: #E8EAED; position: relative; overflow: hidden; }
+  .bar i b { position: absolute; inset: 0 auto 0 0; background: var(--star); border-radius: 4px; }
+  .big-rate { text-align: center; }
+  .big-rate strong { display: block; font-size: 44px; font-weight: 400; line-height: 1; }
+  .big-rate span { color: var(--txt2); font-size: 12px; }
+  .write { margin: 0 16px 8px; display: flex; justify-content: center; }
+  .rev { padding: 16px; border-top: 1px solid var(--div); display: grid; gap: 8px; }
+  .who { display: flex; align-items: center; gap: 12px; }
+  .av { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 500; }
+  .who small { display: block; color: var(--txt2); font-size: 12px; }
+  .owner { margin-left: 12px; padding-left: 12px; border-left: 2px solid var(--div); color: var(--txt); }
+  .owner b { display: block; font-size: 12px; font-weight: 500; color: var(--txt); margin-bottom: 2px; }
+  .owner .tagp { display: inline-block; font-size: 11px; font-weight: 700; background: #FFF3C4; border-radius: 4px; padding: 0 5px; margin-left: 4px; }
+  .verif { color: var(--txt2); font-size: 12px; }
+
+  .menu-cta { margin: 16px; }
+  .notes { padding: 16px; color: var(--txt2); font-size: 12px; display: grid; gap: 8px; }
+  .label-chip { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; background: #FFF3C4; color: #161412; padding: 2px 8px; border-radius: 4px; }
 </style>
 </head>
 <body class="maqueta">
 <div class="maqueta-label" role="note"><strong>Maqueta de propuesta</strong><span>no es la ficha real de Pausa</span></div>
-<div class="stage"><div class="phone"><div class="screen" style="padding-top:0">
+<div class="stage"><div class="phone"><div class="screen gm">
 
-  <div class="photos">
-    <img src="../assets/img/maps-fachada-320.webp" width="320" height="320" alt="Fachada del local principal">
-    <img src="../assets/img/maps-ventanilla-320.webp" width="320" height="320" loading="lazy" alt="Ventana de retiro">
-    <img src="../assets/img/maps-producto-1-320.webp" width="320" height="320" loading="lazy" alt="Bebidas calientes">
-    <img src="../assets/img/maps-producto-2-320.webp" width="320" height="320" loading="lazy" alt="Bebidas frías">
-    <img src="../assets/img/maps-barra-320.webp" width="320" height="320" loading="lazy" alt="Barista sirviendo latte art en un vaso de Pausa">
-  </div>
-
-  <div class="m-title">
-    <h1>Pausa Coffee Express</h1>
-    <!-- Calificación y número reales (C26, 09/09/2026) [VERIFICAR la cifra vigente] -->
-    <p><b>5,0</b> de 5 · 7 reseñas · Cafetería</p>
-    <p><span class="status" data-status>Lun–sáb · 8–12 y 15–20</span></p>
-  </div>
-
-  <div class="m-actions">
-    <a class="dark" data-maps="principal" href="#" target="_blank">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg>Cómo llegar</a>
-    <a href="../" target="_blank">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Sitio web</a>
-    <a data-catalog href="#" target="_blank">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>Menú</a>
-  </div>
-
-  <p class="small">Cafetería para llevar en el centro de Tarija. Café y matcha listos para retirar por ventanilla: pides por WhatsApp, pagas con QR y pasas a recoger sin hacer fila.</p>
-  <div class="attr" style="margin:var(--s3) 0">
-    <span class="tag tag--light">Para llevar</span><span class="tag tag--light">Retiro en ventanilla</span>
-    <span class="xsmall muted" style="align-self:center">[VERIFICAR atributos disponibles]</span>
+  <!-- Mapa ilustrativo (dibujado, no es un mapa real) -->
+  <div class="map" aria-hidden="true">
+    <svg class="streets" viewBox="0 0 400 230" preserveAspectRatio="xMidYMid slice">
+      <rect width="400" height="230" fill="#F1EFE9"/>
+      <rect x="250" y="150" width="110" height="80" rx="4" fill="#CDE8C9"/>
+      <g fill="#E6E2D8"><rect x="20" y="20" width="90" height="70" rx="3"/><rect x="130" y="20" width="100" height="70" rx="3"/><rect x="250" y="20" width="120" height="70" rx="3"/><rect x="20" y="110" width="90" height="100" rx="3"/><rect x="130" y="110" width="100" height="100" rx="3"/></g>
+      <g stroke="#FFFFFF" stroke-width="14" stroke-linecap="square"><path d="M0 100H400"/><path d="M120 0V230"/><path d="M240 0V230"/></g>
+      <g stroke="#FCE8B2" stroke-width="12"><path d="M0 10H400"/></g>
+      <g font-family="Roboto, Arial, sans-serif" font-size="9" fill="#7A7A7A">
+        <text x="300" y="97">C. Sucre</text>
+        <text x="236" y="190" transform="rotate(-90 236 190)">Virginio Lema</text>
+        <text x="116" y="196" transform="rotate(-90 116 196)">15 de Abril</text>
+      </g>
+    </svg>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <span>Pausa Coffee Express</span>
+    </div>
+    <div class="pin">
+      <svg viewBox="0 0 34 46"><path d="M17 0C7.6 0 0 7.5 0 16.8 0 29.4 17 46 17 46s17-16.6 17-29.2C34 7.5 26.4 0 17 0z" fill="#C5221F"/><circle cx="17" cy="16.5" r="9" fill="#fff"/><path d="M12.5 13h8v4.5a4 4 0 0 1-8 0zM20.5 14h1.2a1.6 1.6 0 0 1 0 3.2h-1.2" fill="none" stroke="#C5221F" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </div>
+    <span class="map-note">Mapa ilustrativo</span>
   </div>
 
-  <div class="rows">
-    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-      <p>C. Sucre entre Virginio Lema y 15 de Abril, Tarija · ventanilla de retiro</p></div>
-    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      <div class="hours small"><span>Lun a sáb</span><span>8:00–12:00 · 15:00–20:00</span><span>Domingo</span><span>Cerrado</span></div></div>
-    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
-      <p>64581332 <span class="xsmall muted">(en la maqueta no se enlaza, para no llamar al local)</span></p></div>
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="pad">
+      <h1>Pausa Coffee Express</h1>
+      <div class="meta">
+        <!-- Calificación y número reales (C26, 09/09/2026) [VERIFICAR la cifra vigente] -->
+        <span class="rate">5,0 <span class="stars" aria-label="5 de 5 estrellas">★★★★★</span> (7)</span>
+        <span>Cafetería · Bs 1–20</span>
+        <span class="open-line"><span class="st" data-gstatus>Lun–sáb · 8–12 y 15–20</span></span>
+      </div>
+      <span class="label-chip">Maqueta de propuesta</span>
+    </div>
+
+    <div class="actions">
+      <a class="act act--main" data-maps="principal" href="#" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 11.3l-9-9a1 1 0 0 0-1.4 0l-9 9a1 1 0 0 0 0 1.4l9 9a1 1 0 0 0 1.4 0l9-9a1 1 0 0 0 0-1.4zM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5z"/></svg>Cómo llegar</a>
+      <a class="act" href="../" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Sitio web</a>
+      <a class="act" data-catalog href="#" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>Menú</a>
+      <a class="act" data-maps="ficha" href="#" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Escribir reseña</a>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-tab="general">Descripción general</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="menu">Menú</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="resenas">Reseñas</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="info">Información</button>
+    </div>
+
+    <!-- Descripción general -->
+    <section class="panel on" id="p-general" role="tabpanel">
+      <div class="photos">
+        <figure><img class="big" src="../assets/img/maps-fachada-320.webp" width="320" height="320" alt="Fachada del local principal"><figcaption>Fachada</figcaption></figure>
+        <figure><img src="../assets/img/maps-ventanilla-320.webp" width="320" height="320" loading="lazy" alt="Ventana de retiro"><figcaption>Ventanilla</figcaption></figure>
+        <figure><img src="../assets/img/maps-producto-1-320.webp" width="320" height="320" loading="lazy" alt="Bebidas calientes"><figcaption>Calientes</figcaption></figure>
+        <figure><img src="../assets/img/maps-producto-2-320.webp" width="320" height="320" loading="lazy" alt="Bebidas frías"><figcaption>Fríos</figcaption></figure>
+        <figure><img src="../assets/img/maps-barra-320.webp" width="320" height="320" loading="lazy" alt="Barista sirviendo latte art"><figcaption>Equipo</figcaption></figure>
+      </div>
+      <p class="desc">Cafetería para llevar en el centro de Tarija. Café y matcha listos para retirar por ventanilla: pides por WhatsApp, pagas con QR y pasas a recoger sin hacer fila.</p>
+      <div class="chips">
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Para llevar</span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Retiro en ventanilla</span>
+        <span class="verif" style="align-self:center">[VERIFICAR atributos disponibles]</span>
+      </div>
+      <div class="rows">
+        <a class="row" data-maps="principal" href="#" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <span>C. Sucre entre Virginio Lema y 15 de Abril, Tarija<small>Local principal · ventanilla de retiro</small></span></a>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span><span class="open-line"><span class="st" data-gstatus>Lun–sáb · 8–12 y 15–20</span></span>
+            <span class="hours" id="hours"></span></span>
+        </div>
+        <a class="row" href="../" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <span id="web-host">Sitio web de la propuesta</span></a>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+          <span>64581332<small>En la maqueta no se enlaza, para no llamar al local</small></span></div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16M12 4v16"/></svg>
+          <span>F788+27F Tarija<small>Código plus de la ficha actual (C19)</small></span></div>
+      </div>
+    </section>
+
+    <!-- Menú -->
+    <section class="panel" id="p-menu" role="tabpanel">
+      <div class="photos">
+        <figure><img class="big" src="../assets/img/maps-producto-1-320.webp" width="320" height="320" alt="Bebidas calientes"><figcaption>Calientes</figcaption></figure>
+        <figure><img class="big" src="../assets/img/maps-producto-2-320.webp" width="320" height="320" alt="Bebidas frías"><figcaption>Fríos</figcaption></figure>
+      </div>
+      <p class="desc">Los precios viven en un solo lugar: el menú de WhatsApp de Pausa (opción A).</p>
+      <div class="menu-cta"><a class="act act--main" data-catalog href="#" target="_blank" style="width:100%;justify-content:center">Ver menú y precios</a></div>
+    </section>
+
+    <!-- Reseñas -->
+    <section class="panel" id="p-resenas" role="tabpanel">
+      <div class="sum">
+        <div class="bars" aria-label="Distribución de calificaciones">
+          <div class="bar">5<i><b style="width:100%"></b></i></div>
+          <div class="bar">4<i></i></div>
+          <div class="bar">3<i></i></div>
+          <div class="bar">2<i></i></div>
+          <div class="bar">1<i></i></div>
+        </div>
+        <div class="big-rate"><strong>5,0</strong><span class="stars">★★★★★</span><br><span>7 reseñas</span></div>
+      </div>
+      <div class="write"><a class="act" data-maps="ficha" href="#" target="_blank">Escribir una reseña</a></div>
+
+      <!-- Fragmentos textuales de reseñas reales (C2, C26) con las respuestas propuestas en 12 §2.6 -->
+      <article class="rev">
+        <div class="who"><span class="av" style="background:#7B1FA2">J</span><div>Julia Corez<small>hace 7 meses (al 05/09/2026)</small></div></div>
+        <span class="stars">★★★★★</span>
+        <p>«…te sirven súper rápido» <span class="verif">[VERIFICAR: texto completo]</span></p>
+        <div class="owner"><b>Respuesta del propietario <span class="tagp">propuesta</span></b>¡Muchas gracias por tu reseña, Julia! Nos alegra que las bebidas y las masitas te hayan gustado y que te atendiéramos rápido. ¡Te esperamos pronto! ☕</div>
+      </article>
+      <article class="rev">
+        <div class="who"><span class="av" style="background:#00796B">G</span><div>Georgia Rose<small>hace 6 meses (al 09/09/2026)</small></div></div>
+        <span class="stars">★★★★★</span>
+        <p lang="en">«…hidden gem» <span class="verif" lang="es">[VERIFICAR: texto completo]</span></p>
+        <div class="owner" lang="en"><b lang="es">Respuesta del propietario <span class="tagp">propuesta</span></b>Thank you so much, Georgia! We're glad you found us and enjoyed the coffee. Hope to see you again soon ☕</div>
+      </article>
+    </section>
+
+    <!-- Información -->
+    <section class="panel" id="p-info" role="tabpanel">
+      <div class="rows">
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span>Horario<span class="hours" id="hours2"></span></span></div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><rect x="9" y="11" width="6" height="5" rx="1"/></svg>
+          <span>Opciones de servicio<small>Para llevar · Retiro en ventanilla [VERIFICAR]</small></span></div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>
+          <span>Pagos<small>QR interoperable desde la app de tu banco o billetera</small></span></div>
+        <a class="row" data-maps="sucursal" href="#" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <span>Otra ficha: Pausa Coffee Express (sucursal)<small>Av. La Paz 249, entre Avaroa y Las Américas · compra en mostrador</small></span></a>
+      </div>
+    </section>
+
+    <div class="notes">
+      <p><b>Maqueta de propuesta</b> (EC2, Marketing Móvil MKD-314, UCB Tarija). Muestra cómo quedaría la ficha del local principal después de completarla (12 §2.6). El mapa es ilustrativo.</p>
+      <p>Reclamar y verificar la ficha, completarla y responder las reseñas depende del dueño: PROPUESTO. Los botones funcionan: «Cómo llegar» abre Maps, «Sitio web» abre la propuesta, «Menú» abre el catálogo del número de demostración y «Escribir reseña» abre la ficha real, donde no se publica nada durante la demo.</p>
+    </div>
   </div>
 
-  <h2 style="margin-top:var(--s5)">Reseñas</h2>
-  <!-- Fragmentos textuales de reseñas reales (C2, C26) con las respuestas propuestas en 12 §2.6 -->
-  <div class="rev">
-    <p><b>Julia Corez</b> · 5 de 5 · hace 7 meses (al 05/09/2026)</p>
-    <p>«…te sirven súper rápido» <span class="xsmall muted">[VERIFICAR: texto completo]</span></p>
-    <div class="owner"><b>Respuesta del propietario (propuesta)</b>¡Muchas gracias por tu reseña, Julia! Nos alegra que las bebidas y las masitas te hayan gustado y que te atendiéramos rápido. ¡Te esperamos pronto! ☕</div>
-  </div>
-  <div class="rev">
-    <p><b>Georgia Rose</b> · 5 de 5 · hace 6 meses (al 09/09/2026)</p>
-    <p lang="en">«…hidden gem» <span class="xsmall muted" lang="es">[VERIFICAR: texto completo]</span></p>
-    <div class="owner" lang="en"><b lang="es">Respuesta del propietario (propuesta)</b>Thank you so much, Georgia! We're glad you found us and enjoyed the coffee. Hope to see you again soon ☕</div>
-  </div>
-
-  <div class="foot-note">
-    <p>Maqueta de propuesta (EC2, UCB): la ficha completa del local principal. La sucursal (Av. La Paz 249, entre Avaroa y Las Américas) lleva una ficha propia con el mismo nombre, compra en mostrador.</p>
-    <p>Reclamar y verificar la ficha, completarla y responder las reseñas depende del dueño: PROPUESTO. Los botones funcionan: Cómo llegar abre Maps, Sitio web abre la propuesta y Menú abre el catálogo del número de demostración.</p>
-  </div>
 </div></div></div>
 <script src="../assets/js/config.js" defer></script>
 <script src="../assets/js/main.js" defer></script>
+<script defer>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Pestañas
+    var tabs = document.querySelectorAll(".tab");
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        tabs.forEach(function (x) { x.setAttribute("aria-selected", String(x === t)); });
+        document.querySelectorAll(".panel").forEach(function (p) { p.classList.toggle("on", p.id === "p-" + t.dataset.tab); });
+      });
+    });
+    // Horario de la semana desde config.js, con el día de hoy resaltado
+    var C = window.PAUSA, dias = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+    var hoy = new Intl.DateTimeFormat("es-BO", { timeZone: C.TIMEZONE, weekday: "long" }).format(new Date()).toLowerCase();
+    var franjas = C.HORARIO.franjas.map(function (f) { return f[0].replace(/^0/, "") + "–" + f[1].replace(/^0/, ""); }).join(", ");
+    var html = [1,2,3,4,5,6,0].map(function (d) {
+      var cls = dias[d] === hoy ? ' class="today"' : "";
+      var val = C.HORARIO.dias.indexOf(d) !== -1 ? franjas : "Cerrado";
+      return "<span" + cls + ">" + dias[d] + "</span><span" + cls + ">" + val + "</span>";
+    }).join("");
+    document.getElementById("hours").innerHTML = html;
+    document.getElementById("hours2").innerHTML = html;
+    // Estado con la redacción de una ficha de mapas: «Abierto · Cierra a las 20:00»
+    function gstatus() {
+      var st = window.PAUSA_UI.status();
+      var t = st.text.replace("Abierto ahora · hasta las", "Abierto · Cierra a las")
+                     .replace("Cerrado · abrimos mañana a las", "Cerrado · Abre mañana a las")
+                     .replace("Cerrado · abrimos el", "Cerrado · Abre el")
+                     .replace("Cerrado · abrimos a las", "Cerrado · Abre a las");
+      document.querySelectorAll("[data-gstatus]").forEach(function (el) { el.textContent = t; el.setAttribute("data-open", String(st.open)); });
+    }
+    gstatus(); setInterval(gstatus, 60000);
+    // Dirección de la web de la propuesta
+    var u = new URL("../", location.href);
+    document.getElementById("web-host").textContent = (u.host + u.pathname).replace(/\/$/, "");
+  });
+</script>
 </body>
 </html>
