@@ -1,5 +1,5 @@
-codigo,nombre,sellos,ultimo_sello
-K7M2QX,Ana (ficticia),3,10/10/2026
-R4T9WB,Diego (ficticio),8,13/10/2026
-H2PZ6N,Camila (ficticia),10,12/10/2026
-B5NQ8D,Cliente B (demo),0,
+numero,sellos,ultimo_sello
+11111111,3,10/10/2026
+22222222,8,13/10/2026
+33333333,10,12/10/2026
+44444444,0,

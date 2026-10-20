@@ -6,50 +6,67 @@
 <title>Mis puntos · Pausa Coffee Express (propuesta)</title>
 <meta name="robots" content="noindex">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#F7F3EE">
+<meta name="theme-color" content="#161412">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="assets/icons/favicon-48.png" sizes="48x48">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/base.css">
 <style>
-  .header { display: flex; align-items: center; justify-content: space-between; padding: var(--s3) 0; }
-  .header img { width: 112px; height: auto; }
-  .header a { font-weight: 700; font-size: var(--fs-sm); min-height: var(--tap); display: inline-flex; align-items: center; }
-  .panel { min-height: 360px; display: grid; gap: var(--s5); align-content: start; padding-top: var(--s4); }
-  .count { display: flex; align-items: baseline; gap: var(--s2); }
-  .count__n { font-size: 4.5rem; font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
-  .count__of { font-size: var(--fs-lg); font-weight: 700; color: var(--ink-2); }
+  .announce { margin: 0; background: var(--ink); color: var(--on-ink); text-align: center; padding: 8px var(--s3); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .masthead { border-bottom: 1px solid var(--ink); }
+  .masthead .wrap { display: flex; justify-content: center; align-items: center; min-height: 60px; }
+  .masthead img { width: 132px; height: auto; }
+  .page { max-width: 520px; margin: 0 auto; padding: var(--s6) var(--s4) var(--s5); }
+  .panel { min-height: 300px; display: grid; gap: var(--s4); align-content: start; }
+  .sim { justify-self: start; font-size: var(--fs-xs); font-weight: 800; letter-spacing: var(--track); text-transform: uppercase; background: #FFF3C4; color: var(--ink); padding: 4px 8px; }
+
+  /* Buscador por número */
+  .lookup { display: grid; gap: var(--s3); margin-top: var(--s2); }
+  .lookup label { font-size: var(--fs-xs); font-weight: 800; letter-spacing: var(--track); text-transform: uppercase; }
+  .field { display: grid; grid-template-columns: auto 1fr; border: 2px solid var(--ink); background: #fff; }
+  .field span { display: grid; place-items: center; padding: 0 var(--s3); font-weight: 700; border-right: 1px solid var(--ink); }
+  .field input { min-height: var(--tap); border: 0; padding: 0 var(--s3); font: 700 1.25rem/1 var(--font); letter-spacing: 0.06em; color: var(--ink); background: transparent; width: 100%; }
+  .field input:focus { outline: none; }
+  .field:focus-within { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .hint { font-size: var(--fs-sm); color: var(--ink-2); }
+  .error { font-size: var(--fs-sm); color: var(--closed); font-weight: 700; }
+
+  /* Resultado */
+  .who { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s4); font-size: var(--fs-sm); color: var(--ink-2); }
+  .who button { background: none; border: 0; padding: 0; min-height: 44px; font: 800 0.8125rem/1 var(--font); letter-spacing: var(--track); text-transform: uppercase; color: var(--ink); text-decoration: underline; text-underline-offset: 5px; cursor: pointer; }
+  .count { display: flex; align-items: baseline; gap: var(--s2); border-top: 1px solid var(--ink); padding-top: var(--s4); }
+  .count__n { font-size: 5rem; font-weight: 800; line-height: 1; letter-spacing: -0.05em; }
+  .count__of { font-size: var(--fs-md); font-weight: 800; letter-spacing: var(--track); text-transform: uppercase; color: var(--ink-2); }
   .stamps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s3); max-width: 340px; }
   .stamps li { aspect-ratio: 1; border-radius: 50%; border: 2px dashed var(--sand); background: #fff; display: grid; place-items: center; }
   .stamps li.on { border: 2px solid var(--ink); background: var(--ink); }
   .stamps li.on svg { width: 55%; height: 55%; color: #fff; }
-  .rule { background: var(--cream); border-radius: var(--radius); padding: var(--s4); display: grid; gap: var(--s2); }
-  .sim { display: inline-block; font-size: var(--fs-xs); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; background: #FFF3C4; color: var(--ink); padding: 4px 10px; border-radius: 999px; }
+
+  .rule-box { margin-top: var(--s6); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: var(--s5) 0; display: grid; gap: var(--s2); }
+  .rule-box h2 { font-size: var(--fs-md); letter-spacing: 0.02em; }
+  .foot-note { padding: var(--s5) 0; text-align: center; }
 </style>
 </head>
 <body class="has-bar">
-<div class="wrap">
-  <header class="header">
-    <a href="./" aria-label="Ir a la página de Pausa Coffee Express"><img src="assets/img/logo-negro-360.webp" width="360" height="98" alt="Pausa Coffee Express"></a>
-  </header>
+<p class="announce">Propuesta académica UCB · no es el sitio oficial de Pausa</p>
+<header class="masthead">
+  <div class="wrap"><a href="./" aria-label="Ir a la página de Pausa Coffee Express"><img src="assets/img/logo-negro-360.webp" width="360" height="98" alt="Pausa Coffee Express"></a></div>
+</header>
 
+<div class="page">
   <main class="panel" id="panel" aria-live="polite">
     <span class="sim" id="sim">Consulta de puntos · demostración</span>
     <h1>Mis puntos</h1>
-    <p class="muted">Cargando tus sellos…</p>
+    <p class="muted">Cargando…</p>
   </main>
 
-  <section class="section" aria-labelledby="h-regla">
-    <div class="rule">
-      <h2 id="h-regla" class="small" style="font-size:var(--fs-md)">Una compra, un sello</h2>
-      <p class="small">Los pedidos que haces por WhatsApp y pagas con QR suman aquí, cuando vemos tu pago. Las compras en el mostrador se sellan en tu tarjeta de cartón. Para canjear, juntamos los sellos de los dos.</p>
-    </div>
+  <section class="rule-box" aria-labelledby="h-regla">
+    <h2 id="h-regla">Una compra, un sello</h2>
+    <p class="small muted">Los pedidos que haces por WhatsApp y pagas con QR suman aquí, cuando vemos tu pago. Las compras en el mostrador se sellan en tu tarjeta de cartón. Para canjear, juntamos los sellos de los dos.</p>
   </section>
 
-  <footer class="footer">
-    <p class="note-propuesta">Propuesta académica UCB · no es el sitio oficial de Pausa</p>
-  </footer>
+  <p class="note-propuesta foot-note">Propuesta académica UCB · no es el sitio oficial de Pausa</p>
 </div>
 
 <div class="bottom-bar">
