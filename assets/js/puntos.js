@@ -45,9 +45,7 @@
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
   function check() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'; }
   function clear() {
-    var sim = document.getElementById("sim");
-    sim.textContent = C.SHEET_CSV_URL ? "Demostración · hoja de registro del equipo" : "Simulado · números ficticios";
-    while (panel.children.length > 1) panel.removeChild(panel.lastChild);
+    while (panel.firstChild) panel.removeChild(panel.firstChild);
   }
   function whoLine(numero) {
     var w = el("div", "who");
