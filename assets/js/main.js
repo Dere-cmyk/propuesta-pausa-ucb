@@ -4,9 +4,34 @@
   var C = window.PAUSA;
   if (!C) return;
 
-  /* No pedir la instalación: se suprime el aviso automático de Chrome.
-     La web sigue siendo instalable desde el menú del navegador. */
-  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); });
+  /* Instalación: no se muestra el aviso automático de Chrome (es invasivo).
+     Se guarda el evento y, solo en puntos.html, un botón «Instalar» lo usa.
+     También se puede instalar desde el menú ⋮ de Chrome. */
+  var installEvent = null;
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    installEvent = e;
+    var box = document.getElementById("instalar");
+    if (box) box.hidden = false;
+  });
+  window.addEventListener("appinstalled", function () {
+    installEvent = null;
+    var box = document.getElementById("instalar");
+    if (box) box.hidden = true;
+  });
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest && ev.target.closest("#instalar-btn");
+    if (!b || !installEvent) return;
+    installEvent.prompt();
+    installEvent.userChoice.then(function () { installEvent = null; var box = document.getElementById("instalar"); if (box) box.hidden = true; });
+  });
+
+  /* Service worker mínimo: requisito para que Chrome en Android ofrezca instalar */
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
+    });
+  }
 
   function waLink(key) {
     var text = (C.WA_TEXTS && C.WA_TEXTS[key]) || "";

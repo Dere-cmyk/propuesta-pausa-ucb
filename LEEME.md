@@ -38,7 +38,7 @@ Todo dato de la marca vive en **`assets/js/config.js`**. En GitHub: abrir el arc
 
 ## Peso y medición
 
-Primera pantalla ≈ 80 KB (HTML, CSS, JS, fuente Manrope autoalojada, logo e imagen principal WebP). Imágenes debajo de la primera pantalla con carga diferida. Sin frameworks, sin service worker. El manifiesto hace la web instalable, pero el aviso automático de instalación se suprime (`beforeinstallprompt`).
+Primera pantalla ≈ 80 KB (HTML, CSS, JS, fuente Manrope autoalojada, logo e imagen principal WebP). Imágenes debajo de la primera pantalla con carga diferida. Sin frameworks. Service worker mínimo (`sw.js`, red primero; nunca guarda los CSV de sellos) + manifiesto: la web es instalable. El aviso automático se suprime y, en `puntos.html`, aparece un botón «Instalar en mi celular» cuando el navegador lo permite.
 
 ## Origen de las imágenes
 

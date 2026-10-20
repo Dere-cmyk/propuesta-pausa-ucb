@@ -43,6 +43,9 @@
   .stamps li.on { border: 2px solid var(--ink); background: var(--ink); }
   .stamps li.on svg { width: 55%; height: 55%; color: #fff; }
 
+  .install { margin-top: var(--s6); display: grid; gap: var(--s3); justify-items: start; }
+  .install[hidden] { display: none; }
+  .install h2 { font-size: var(--fs-md); letter-spacing: 0.02em; }
   .rule-box { margin-top: var(--s6); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: var(--s5) 0; display: grid; gap: var(--s2); }
   .rule-box h2 { font-size: var(--fs-md); letter-spacing: 0.02em; }
   .foot-note { padding: var(--s5) 0; text-align: center; }
@@ -60,6 +63,12 @@
     <h1>Mis puntos</h1>
     <p class="muted">Cargando…</p>
   </main>
+
+  <section class="install" id="instalar" hidden aria-labelledby="h-instalar">
+    <h2 id="h-instalar">Ten tus sellos a un toque</h2>
+    <p class="small muted">Instala esta página como app en tu celular: abre directo en tus sellos, sin buscar el enlace.</p>
+    <button class="btn btn--secondary" type="button" id="instalar-btn">Instalar en mi celular</button>
+  </section>
 
   <section class="rule-box" aria-labelledby="h-regla">
     <h2 id="h-regla">Una compra, un sello</h2>
