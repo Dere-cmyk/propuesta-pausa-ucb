@@ -4,7 +4,7 @@
    Siempre pide primero a la red (así los cambios de la web se ven al instante)
    y usa la copia guardada solo si no hay conexión.
    Los CSV de sellos NUNCA se guardan: los sellos deben ser los del momento. */
-var VERSION = "pausa-v1";
+var VERSION = "pausa-v2";
 var SHELL = [
   "./puntos.html",
   "./assets/css/base.css",
@@ -41,7 +41,7 @@ self.addEventListener("fetch", function (e) {
   if (/\.csv$/i.test(url.pathname)) return;           // sellos de prueba: sin caché
 
   e.respondWith(
-    fetch(req)
+    fetch(req, { cache: "no-cache" })   // revalida siempre: ignora la caché de 10 min de GitHub Pages
       .then(function (res) {
         if (res && res.ok) {
           var copy = res.clone();
@@ -50,7 +50,7 @@ self.addEventListener("fetch", function (e) {
         return res;
       })
       .catch(function () {
-        return caches.match(req).then(function (hit) {
+        return caches.match(req, { ignoreSearch: true }).then(function (hit) {
           return hit || (req.mode === "navigate" ? caches.match("./puntos.html") : Response.error());
         });
       })
