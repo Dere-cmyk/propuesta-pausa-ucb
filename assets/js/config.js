@@ -47,7 +47,7 @@ window.PAUSA = {
      Pegar aquí el enlace de la pestaña «Consulta» publicada como CSV
      (Archivo > Compartir > Publicar en la web > Consulta > CSV).
      Vacío = se usan los clientes ficticios de datos/puntos-demo.csv     */
-  SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTuyH5kEynhyOSV-l-Q4cWKI1Ccf8WjL6iv84FGSZ0xuszdBBqXBUksIxg6tZU7rA/pub?gid=734004414&single=true&output=csv",
+  SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTKDYEOE8v_A10YPbV__2Wi0EDh5WEWKHOw1LuLxnDeacozQU-VK_mfoZNAnJkVGQ/pub?gid=1047609064&single=true&output=csv",
 
   SELLOS_META: 10,
   ACTUALIZADO: "14/10/2026"
